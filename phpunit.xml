@@ -1,0 +1,11 @@
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" colors="true" bootstrap="vendor/autoload.php" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd">
+    <testsuite name="test">
+        <directory>test</directory>
+    </testsuite>
+    <coverage/>
+    <source>
+        <include>
+            <directory suffix=".php">GamerHelpDesk</directory>
+        </include>
+    </source>
+</phpunit>
