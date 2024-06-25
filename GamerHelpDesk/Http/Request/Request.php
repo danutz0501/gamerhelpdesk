@@ -25,34 +25,60 @@
 declare(strict_types=1);
 
 namespace GamerHelpDesk\Http\Request;
-
-use GamerHelpDesk\Exception\{
-    GamerHelpDeskException,
-     GamerHelpDeskExceptionEnum
-    };
-
 class Request
 {
     /**
      * List of HTTP verbs
      */
     const HTTP_VERBS = "GET|POST";
-
     /**
-     * Constructs a new instance of the Request class.
+     * The raw URI of the request.
      *
-     * @param string|null $rawUri The raw URI of the request. If not provided, it will default to the value of $_SERVER['REQUEST_URI'].
-     * @throws GamerHelpDeskException If the raw URI is empty.
+     * @var string
      */
-    public function __construct(protected readonly string $rawUri = $_SERVER['REQUEST_URI'] ?? null, protected readonly string $method, 
-                                protected readonly string $uri, protected readonly bool $ajax)
+    protected readonly string $rawUri;
+    /**
+     * Method of the request
+     *
+     * @var string
+     */
+    protected readonly string $method;
+    /**
+     * The cleaned URI of the request.
+     *
+     * @var string
+     */
+    protected readonly string $uri;
+    /**
+     * Flag indicating whether the request is an AJAX request.
+     *
+     * @var boolean
+     */
+    protected readonly bool $ajax;
+    /**
+     * Array containing the headers of the request.
+     *
+     * @var array
+     */
+    protected readonly array $headers;
+    /**
+     * Constructs a new instance of the class.
+     *
+     * @param string $rawUri The raw URI of the request.
+     * @param string $method The HTTP method of the request.
+     * @param string $uri The cleaned URI of the request.
+     * @param bool $ajax Whether the request is an AJAX request.
+     * @param array $headers The headers of the request.
+     * @throws GamerHelpDeskException If no request URI is found.
+     * @return void
+     */
+    public function __construct()
     {
-        if (empty($this->rawUri))
-        {
-            throw new GamerHelpDeskException(GamerHelpDeskExceptionEnum::InvalidArgumentException, "No request URI found");
-        }
+        $this->rawUri = $_SERVER['REQUEST_URI'] ?? '';
         $this->getMethod();
         $this->cleanUri();
+        $this->getHeaders();
+        $this->checkAjax();
     }
 
     /**
@@ -98,6 +124,17 @@ class Request
     }
 
     /**
+     * Retrieves the header value based on the provided key.
+     *
+     * @param string $key The key to retrieve the header value.
+     * @return string|bool The header value if found, false otherwise.
+     */
+    public function getHeader(string $key): string|bool
+    {
+        return $this->headers[ucfirst(string: $key)] ?? false;
+    }
+
+    /**
      * Retrieves the HTTP method of the request.
      *
      * This function checks the value of the $_SERVER['REQUEST_METHOD'] variable and matches it against a list of valid HTTP verbs.
@@ -107,7 +144,7 @@ class Request
      */
     private function getMethod(): void
     {
-        $this->method = $_SERVER['REQUEST_METHOD'] && preg_match(pattern: self::HTTP_VERBS, subject: strtoupper(string: $_SERVER['REQUEST_METHOD'])) ?? "GET";
+        $this->method = $_SERVER['REQUEST_METHOD'] && preg_match(pattern: self::HTTP_VERBS, subject: strtoupper(string: $_SERVER['REQUEST_METHOD'])) ? $_SERVER['REQUEST_METHOD'] : "GET";
     }
 
     /**
@@ -119,5 +156,23 @@ class Request
     {
         $this->uri = preg_replace(pattern: '/[^\da-z\-\/]/i', replacement: '', subject: filter_var(value: $this->getRawUri(), filter: FILTER_SANITIZE_URL));   
     }
+
+    /**
+     * Retrieves the headers of the request by using the PHP getallheaders() function.
+     *
+     * @return void
+     */
+    private function getHeaders(): void
+    {
+        $this->headers = getallheaders();
+    }
+
+    /**
+     * Sets the $ajax property based on the presence of 'X-Requested-With' header being 'XMLHttpRequest'.
+     *
+     */
+    private function checkAjax(): void
+    {
+        $this->ajax = $this->headers['X-Requested-With'] == 'XMLHttpRequest';
+    }
 }
-//TODO: finish class (ajax headers, etc)
