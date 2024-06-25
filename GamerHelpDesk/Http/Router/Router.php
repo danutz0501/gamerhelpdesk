@@ -31,16 +31,29 @@ use GamerHelpDesk\Exception\{
     GamerHelpDeskExceptionEnum
 };
 use GamerHelpDesk\Helper\Singleton\SingletonTrait;
+use GamerHelpDesk\Http\Request\Request;
 
 class Router
 {
-    //TODO: Implement Router class
+    /**
+     * Singleton instance.
+     */
     use SingletonTrait;
 
+    /**
+     * Constructs a new instance of the class.
+     *
+     * @param RouteCollection $get The collection of GET routes. Defaults to a new instance of RouteCollection.
+     * @param RouteCollection $post The collection of POST routes. Defaults to a new instance of RouteCollection.
+     * @param string $method The HTTP method of the request. Defaults to an empty string.
+     * @param array $params The parameters of the request. Defaults to an empty array.
+     * @param Request $request The request object. Defaults to a new instance of Request.
+     */
     private function __construct(
         protected RouteCollection $get = new RouteCollection(),
         protected RouteCollection $post = new RouteCollection(),
-        protected string $method = '', protected array $params = []
+        protected string $method = '', protected array $params = [],
+        protected Request $request = new Request()
     )
     {}
 
@@ -49,3 +62,4 @@ class Router
         $this->{strtolower($verb)}->add(new Route($route, ltrim($method, '\\')));
     }
 }
+//TODO: finish class

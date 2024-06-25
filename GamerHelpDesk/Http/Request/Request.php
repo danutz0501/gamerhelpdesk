@@ -143,7 +143,7 @@ class Request
      */
     private function getMethod(): void
     {
-        $this->method = $_SERVER['REQUEST_METHOD'] && preg_match(pattern: self::HTTP_VERBS, subject: strtoupper(string: $_SERVER['REQUEST_METHOD'])) ? $_SERVER['REQUEST_METHOD'] : "GET";
+        $this->method = isset($_SERVER['REQUEST_METHOD']) && preg_match(pattern: self::HTTP_VERBS, subject: strtoupper(string: $_SERVER['REQUEST_METHOD'])) ? $_SERVER['REQUEST_METHOD'] : "GET";
     }
 
     /**
@@ -172,6 +172,6 @@ class Request
      */
     private function checkAjax(): void
     {
-        $this->ajax = $this->headers['X-Requested-With'] == 'XMLHttpRequest';
+        $this->ajax = isset($this->headers['X-Requested-With']) && $this->headers['X-Requested-With'] == 'XMLHttpRequest';
     }
 }
