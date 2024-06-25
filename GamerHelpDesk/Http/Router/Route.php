@@ -38,9 +38,9 @@ class Route
      */
     private array $patterns =
     [
-        ":string" => "([a-z\-])",
-        ":number" => "([\d+])",
-        ":any"    => "(\w+\-)",
+        ":string" => "([a-z\-]+)",
+        ":number" => "([\d]+)",
+        ":any"    => "([\w\-]+)",
         "{"       => "(",
         "}"       => ")",
         "#"       => "?<",
@@ -69,7 +69,7 @@ class Route
      */
     public function verify(string $url): bool
     {
-        if (preg_match(pattern: $this->regex, subject: $url, matches: $matches) === 1)
+        if (preg_match(pattern: $this->regex, subject: $url, matches: $matches))
         {
             $this->params = $matches;
             return true;
@@ -77,6 +77,34 @@ class Route
         return false;
     }
 
+    /**
+     * Retrieves the parameters associated with this route.
+     *
+     * @return array The array of parameters.
+     */
+    public function getParams(): array
+    {
+        return $this->params;
+    }
+
+    /**
+     * Retrieves the regular expression for this route.
+     *
+     * @return string The regular expression for this route.
+     */
+    public function getRegex(): string
+    {
+        return $this->regex;
+    }
+    
+    /**
+     * Retrieves the method associated with this route.
+     *
+     * @return string The method for this route.
+     */
+    public function getMethod(): string
+    {
+        return $this->method;}
     /**
      * Compiles the regular expression for this route.
      *

@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Code Coverage for D:\Source code\Php\htdocs\sites\gamerhelpdesk\GamerHelpDesk\Exception\GamerHelpDeskExceptionEnum.php</title>
+  <title>Code Coverage for D:\Source code\Php\htdocs\sites\gamerhelpdesk\GamerHelpDesk\Zip\Zip.php</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../_css/bootstrap.min.css?v=10.1.14" rel="stylesheet" type="text/css">
   <link href="../_css/octicons.css?v=10.1.14" rel="stylesheet" type="text/css">
@@ -17,8 +17,8 @@
       <nav aria-label="breadcrumb">
        <ol class="breadcrumb">
          <li class="breadcrumb-item"><a href="../index.html">D:\Source code\Php\htdocs\sites\gamerhelpdesk\GamerHelpDesk</a></li>
-         <li class="breadcrumb-item"><a href="index.html">Exception</a></li>
-         <li class="breadcrumb-item active">GamerHelpDeskExceptionEnum.php</li>
+         <li class="breadcrumb-item"><a href="index.html">Zip</a></li>
+         <li class="breadcrumb-item active">Zip.php</li>
 
        </ol>
       </nav>
@@ -56,6 +56,20 @@
        <td class=" small"><div align="right">0&nbsp;/&nbsp;0</div></td>
       </tr>
 
+      <tr>
+       <td class=""><abbr title="GamerHelpDesk\Zip\Zip">Zip</abbr></td>
+       <td class=" big"></td>
+       <td class=" small"><div align="right">n/a</div></td>
+       <td class=" small"><div align="right">0&nbsp;/&nbsp;0</div></td>
+       <td class=" big"></td>
+       <td class=" small"><div align="right">n/a</div></td>
+       <td class=" small"><div align="right">0&nbsp;/&nbsp;0</div></td>
+       <td class=" small">0</td>
+       <td class=" big"></td>
+       <td class=" small"><div align="right">n/a</div></td>
+       <td class=" small"><div align="right">0&nbsp;/&nbsp;0</div></td>
+      </tr>
+
 
      </tbody>
     </table>
@@ -64,7 +78,7 @@
 <tbody>
     <tr class=" d-flex"><td  class="col-1 text-right"><a id="1" href="#1">1</a></td><td class="col-11 codeLine"><span class="default">&lt;?php</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-right"><a id="2" href="#2">2</a></td><td class="col-11 codeLine"><span class="comment">/*</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="3" href="#3">3</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;File:&nbsp;GamerHelpDeskExceptionEnum.php</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-right"><a id="3" href="#3">3</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;File:&nbsp;Zip.php</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-right"><a id="4" href="#4">4</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;Project:&nbsp;GamerHelpDesk</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-right"><a id="5" href="#5">5</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;Created&nbsp;Date:&nbsp;June&nbsp;2024</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-right"><a id="6" href="#6">6</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;Author:&nbsp;M.&nbsp;Dumitru&nbsp;Daniel&nbsp;(danutz0501)</span></td></tr>
@@ -88,26 +102,13 @@
     <tr class=" d-flex"><td  class="col-1 text-right"><a id="24" href="#24">24</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*/</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-right"><a id="25" href="#25">25</a></td><td class="col-11 codeLine"><span class="keyword">declare</span><span class="keyword">(</span><span class="default">strict_types</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">)</span><span class="keyword">;</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-right"><a id="26" href="#26">26</a></td><td class="col-11 codeLine"></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="27" href="#27">27</a></td><td class="col-11 codeLine"><span class="keyword">namespace</span><span class="default">&nbsp;</span><span class="default">GamerHelpDesk\Exception</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-right"><a id="27" href="#27">27</a></td><td class="col-11 codeLine"><span class="keyword">namespace</span><span class="default">&nbsp;</span><span class="default">GamerHelpDesk\Zip</span><span class="keyword">;</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-right"><a id="28" href="#28">28</a></td><td class="col-11 codeLine"></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="29" href="#29">29</a></td><td class="col-11 codeLine"><span class="comment">/**</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="30" href="#30">30</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;Enum&nbsp;for&nbsp;GamerHelpDeskExceptionEnum&nbsp;class</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="31" href="#31">31</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*/</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="32" href="#32">32</a></td><td class="col-11 codeLine"><span class="keyword">enum</span><span class="default">&nbsp;</span><span class="default">GamerHelpDeskExceptionEnum</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="33" href="#33">33</a></td><td class="col-11 codeLine"><span class="keyword">{</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="34" href="#34">34</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="35" href="#35">35</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Custom&nbsp;exception&nbsp;cases</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="36" href="#36">36</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="37" href="#37">37</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">case</span><span class="default">&nbsp;</span><span class="default">InvalidClassException</span><span class="keyword">;</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="38" href="#38">38</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">case</span><span class="default">&nbsp;</span><span class="default">InvalidMethodException</span><span class="keyword">;</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="39" href="#39">39</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">case</span><span class="default">&nbsp;</span><span class="default">InvalidPropertyException</span><span class="keyword">;</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="40" href="#40">40</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">case</span><span class="default">&nbsp;</span><span class="default">InvalidArgumentException</span><span class="keyword">;</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="41" href="#41">41</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">case</span><span class="default">&nbsp;</span><span class="default">InvalidRangeException</span><span class="keyword">;</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="42" href="#42">42</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">case</span><span class="default">&nbsp;</span><span class="default">InvalidPathException</span><span class="keyword">;</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="43" href="#43">43</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">case</span><span class="default">&nbsp;</span><span class="default">InvalidDateTimeException</span><span class="keyword">;</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="44" href="#44">44</a></td><td class="col-11 codeLine"></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="45" href="#45">45</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">case</span><span class="default">&nbsp;</span><span class="default">RouteNotFoundException</span><span class="keyword">;</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="46" href="#46">46</a></td><td class="col-11 codeLine"><span class="keyword">}</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-right"><a id="29" href="#29">29</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-right"><a id="30" href="#30">30</a></td><td class="col-11 codeLine"><span class="keyword">class</span><span class="default">&nbsp;</span><span class="default">Zip</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-right"><a id="31" href="#31">31</a></td><td class="col-11 codeLine"><span class="keyword">{</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-right"><a id="32" href="#32">32</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">//&nbsp;TODO:&nbsp;Implement&nbsp;Zip&nbsp;class</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-right"><a id="33" href="#33">33</a></td><td class="col-11 codeLine"><span class="keyword">}</span></td></tr>
 
 </tbody>
 </table>
