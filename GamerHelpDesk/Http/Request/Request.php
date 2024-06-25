@@ -61,15 +61,14 @@ class Request
      * @var array
      */
     protected readonly array $headers;
+    
     /**
-     * Constructs a new instance of the class.
+     * Constructor for the class.
      *
-     * @param string $rawUri The raw URI of the request.
-     * @param string $method The HTTP method of the request.
-     * @param string $uri The cleaned URI of the request.
-     * @param bool $ajax Whether the request is an AJAX request.
-     * @param array $headers The headers of the request.
-     * @throws GamerHelpDeskException If no request URI is found.
+     * Initializes the object by setting the raw URI, getting the HTTP method,
+     * cleaning the URI, retrieving the headers, and checking if the request
+     * is an AJAX request.
+     *
      * @return void
      */
     public function __construct()
