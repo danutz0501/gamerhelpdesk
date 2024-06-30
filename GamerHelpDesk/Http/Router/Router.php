@@ -32,6 +32,7 @@ use GamerHelpDesk\Exception\{
 };
 use GamerHelpDesk\Helper\Singleton\SingletonTrait;
 use GamerHelpDesk\Http\Request\Request;
+use GamerHelpDesk\Http\Response\Response;
 
 class Router
 {
@@ -50,10 +51,11 @@ class Router
      * @param Request $request The request object. Defaults to a new instance of Request.
      */
     private function __construct(
-        protected RouteCollection $get = new RouteCollection(),
+        protected RouteCollection $get  = new RouteCollection(),
         protected RouteCollection $post = new RouteCollection(),
         protected string $method = '', protected array $params = [],
-        protected Request $request = new Request()
+        protected Request $request      = new Request(),
+        protected Response $response    = new Response(),
     )
     {}
 

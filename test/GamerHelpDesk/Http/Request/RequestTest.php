@@ -32,4 +32,10 @@ class RequestTest extends TestCase
         $this->assertFalse($actualValue);
     }
 
+    public function testAjax()
+    {
+        $_SERVER['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
+        $request = new Request();
+        $this->assertTrue($request->isAjax());
+    }
 }
