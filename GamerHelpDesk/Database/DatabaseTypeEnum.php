@@ -1,6 +1,6 @@
 <?php
 /*
- * File: Database.php
+ * File: DatabaseTypeEnum.php
  * Project: GamerHelpDesk
  * Created Date: July 2024
  * Author: M. Dumitru Daniel (danutz0501)
@@ -26,18 +26,8 @@ declare(strict_types=1);
 
 namespace GamerHelpDesk\Database;
 
-class Database
+enum DatabaseTypeEnum
 {
-    
-    public function __construct()
-    {
-    }
-
-    public function create(DatabaseTypeEnum $type): self
-    {
-
-        return $this;
-    }
-
+    case SQLITE;
+    case MARIA;
 }
-//TODO: Implement this class.

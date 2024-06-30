@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Dashboard for D:\Source code\Php\htdocs\sites\gamerhelpdesk\GamerHelpDesk\Helper\Container</title>
+  <title>Dashboard for D:\Source code\Php\htdocs\sites\gamerhelpdesk\GamerHelpDesk\Database\SQLite</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../../_css/bootstrap.min.css?v=10.1.14" rel="stylesheet" type="text/css">
   <link href="../../_css/nv.d3.min.css?v=10.1.14" rel="stylesheet" type="text/css">
@@ -17,8 +17,8 @@
       <nav aria-label="breadcrumb">
        <ol class="breadcrumb">
          <li class="breadcrumb-item"><a href="../../index.html">D:\Source code\Php\htdocs\sites\gamerhelpdesk\GamerHelpDesk</a></li>
-         <li class="breadcrumb-item"><a href="../index.html">Helper</a></li>
-         <li class="breadcrumb-item"><a href="index.html">Container</a></li>
+         <li class="breadcrumb-item"><a href="../index.html">Database</a></li>
+         <li class="breadcrumb-item"><a href="index.html">SQLite</a></li>
          <li class="breadcrumb-item active">(Dashboard)</li>
 
        </ol>
@@ -59,7 +59,6 @@
         </tr>
        </thead>
        <tbody>
-       <tr><td><a href="Collection.php.html#32">GamerHelp\Helper\Container\Collection</a></td><td class="text-right">0%</td></tr>
 
        </tbody>
       </table>
@@ -113,9 +112,6 @@
         </tr>
        </thead>
        <tbody>
-       <tr><td><a href="Collection.php.html#39"><abbr title="GamerHelp\Helper\Container\Collection::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
-       <tr><td><a href="Collection.php.html#46"><abbr title="GamerHelp\Helper\Container\Collection::getIterator">getIterator</abbr></a></td><td class="text-right">0%</td></tr>
-       <tr><td><a href="Collection.php.html#56"><abbr title="GamerHelp\Helper\Container\Collection::count">count</abbr></a></td><td class="text-right">0%</td></tr>
 
        </tbody>
       </table>
@@ -160,7 +156,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#classCoverageDistribution svg')
-      .datum(getCoverageDistributionData([1,0,0,0,0,0,0,0,0,0,0,0], "Class Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,1], "Class Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -178,7 +174,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#methodCoverageDistribution svg')
-      .datum(getCoverageDistributionData([3,0,0,0,0,0,0,0,0,0,0,0], "Method Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,0], "Method Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -228,7 +224,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Cyclomatic Complexity');
 
     d3.select('#classComplexity svg')
-      .datum(getComplexityData([[0,3,"<a href=\"Collection.php.html#32\">GamerHelp\\Helper\\Container\\Collection<\/a>"]], 'Class Complexity'))
+      .datum(getComplexityData([[100,0,"<a href=\"SQLite.php.html#29\">GamerHelpDesk\\Database\\SQLite\\SQLite<\/a>"]], 'Class Complexity'))
       .transition()
       .duration(500)
       .call(chart);
@@ -252,7 +248,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Method Complexity');
 
     d3.select('#methodComplexity svg')
-      .datum(getComplexityData([[0,1,"<a href=\"Collection.php.html#39\">GamerHelp\\Helper\\Container\\Collection::__construct<\/a>"],[0,1,"<a href=\"Collection.php.html#46\">GamerHelp\\Helper\\Container\\Collection::getIterator<\/a>"],[0,1,"<a href=\"Collection.php.html#56\">GamerHelp\\Helper\\Container\\Collection::count<\/a>"]], 'Method Complexity'))
+      .datum(getComplexityData([], 'Method Complexity'))
       .transition()
       .duration(500)
       .call(chart);
