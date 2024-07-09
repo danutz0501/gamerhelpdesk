@@ -68,6 +68,7 @@ try
     if(file_exists(filename: COMPOSER_PATH."autoload.php") && is_readable(filename: COMPOSER_PATH."autoload.php"))
     {
         require_once COMPOSER_PATH."autoload.php";
+        new User();
     }
     else
     {
@@ -76,5 +77,13 @@ try
 } 
 catch (Throwable $exception) 
 {
-    echo $exception->getMessage();
+    echo $exception->getMessage()."<br/>";
+    echo $exception->getCode()."<br/>";
+    echo $exception->getFile()."<br/>";
+    echo $exception->getLine()."<br/>";
+    echo $exception->getTraceAsString()."<br/>";
+    echo $exception->getPrevious()."<br/>";
+    print_r($exception->getTrace())."<br/>";
+    echo $exception->__toString()."<br/>";
+    \Spatie\Ignition\Ignition::make()->register();
 }

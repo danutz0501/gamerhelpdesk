@@ -38,4 +38,25 @@ class RequestTest extends TestCase
         $request = new Request();
         $this->assertTrue($request->isAjax());
     }
+
+    public function testNotAjax()
+    {
+        $_SERVER['HTTP_X_REQUESTED_WITH'] = '';
+        $request = new Request();
+        $this->assertFalse($request->isAjax());
+    }
+
+    public function testUri()
+    {
+        $_SERVER['REQUEST_URI'] = '/bla';
+        $request = new Request();
+        $this->assertEquals('/bla', $request->getUri());
+    }
+
+    public function testUriWithQuery()
+    {
+        $_SERVER['REQUEST_URI'] = '/bla?key=value';
+        $request = new Request();
+        $this->assertEquals('/bla', $request->getUri());
+    }
 }

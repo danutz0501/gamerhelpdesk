@@ -27,4 +27,4 @@ declare(strict_types=1);
 /**
  * Require bootstrap file(entry point)
  */
-require_once __DIR__."../bootstrap.php";
+require_once __DIR__.DIRECTORY_SEPARATOR."../bootstrap.php";

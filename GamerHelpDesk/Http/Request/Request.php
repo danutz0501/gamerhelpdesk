@@ -50,6 +50,12 @@ class Request
      */
     protected readonly string $uri;
     /**
+     * The query string and fragment of the request.
+     *
+     * @var string
+     */
+    protected readonly string $query, $fragment;
+    /**
      * Flag indicating whether the request is an AJAX request.
      *
      * @var boolean
@@ -88,6 +94,36 @@ class Request
     public function getRawUri(): string
     {
         return $this->rawUri;
+    }
+
+    /**
+     * Retrieves the URI of the request.
+     *
+     * @return string The URI of the request.
+     */
+    public function getUri(): string
+    {
+        return $this->uri;
+    }
+
+    /**
+     * Retrieves the query string of the request.
+     *
+     * @return string The query string of the request.
+     */
+    public function getQuery(): string
+    {
+        return $this->query;
+    }
+
+    /**
+     * Retrieves the fragment of the request.
+     *
+     * @return string The fragment of the request.
+     */
+    public function getFragment(): string
+    {
+        return $this->fragment;
     }
 
     /**
@@ -146,6 +182,11 @@ class Request
         $this->method = isset($_SERVER['REQUEST_METHOD']) && preg_match(pattern: self::HTTP_VERBS, subject: strtoupper(string: $_SERVER['REQUEST_METHOD'])) ? $_SERVER['REQUEST_METHOD'] : "GET";
     }
 
+    private function parseUri(): void
+    {
+        $this->query    = parse_url($this->rawUri, PHP_URL_QUERY)    ?? "";
+        $this->fragment = parse_url($this->rawUri, PHP_URL_FRAGMENT) ?? "";
+    }
     /**
      * Cleans the URI by removing unwanted characters and sanitizing it.
      *
@@ -153,7 +194,7 @@ class Request
      */
     private function cleanUri(): void
     {
-        $this->uri = preg_replace(pattern: '/[^\da-z\-\/]/i', replacement: '', subject: filter_var(value: $this->getRawUri(), filter: FILTER_SANITIZE_URL));   
+        $this->uri = strtok(preg_replace(pattern: '/[^\da-z\-\/]/i', replacement: '', subject: filter_var(value: $this->getRawUri(), filter: FILTER_SANITIZE_URL)), "?#");   
     }
 
     /**
