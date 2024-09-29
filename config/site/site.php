@@ -26,5 +26,13 @@ declare(strict_types=1);
 
 return new class
 {
-    public string $site_name = "GamerHelpDesk";
+    /**
+     * Meta tags
+     *
+     * @var string
+     */
+    public string 
+        $site_name = "GamerHelpDesk",
+        $site_title = "Gamer Help Desk",
+        $site_description = "Helpdesk for my gaming community needs.";
 };
