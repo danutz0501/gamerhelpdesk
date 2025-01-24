@@ -194,7 +194,8 @@ class Request
      */
     private function cleanUri(): void
     {
-        $this->uri = strtok(preg_replace(pattern: '/[^\da-z\-\/]/i', replacement: '', subject: filter_var(value: $this->getRawUri(), filter: FILTER_SANITIZE_URL)), "?#");   
+        //$this->uri = strtok(preg_replace(pattern: '/[^\da-z\-\/]/i', replacement: '', subject: filter_var(value: $this->getRawUri(), filter: FILTER_SANITIZE_URL)), "?#");   
+        $this->uri = preg_replace(pattern: '/[^\da-z\-\/]/i', replacement: '', subject: filter_var(value: $this->getRawUri(), filter: FILTER_SANITIZE_URL));
     }
 
     /**

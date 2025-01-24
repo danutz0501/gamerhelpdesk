@@ -39,7 +39,6 @@ ini_set(option: "display_errors",                  value: 1);
 ini_set(option: "xdebug.var_display_max_depth",    value: "15");
 ini_set(option: "xdebug.var_display_max_children", value: "256");
 ini_set(option: "xdebug.var_display_max_data",     value: "1024");
-
 /**
  * Timezone and internal encoding settings
  */
@@ -77,13 +76,14 @@ try
 } 
 catch (Throwable $exception) 
 {
-    echo $exception->getMessage()."<br/>";
-    echo $exception->getCode()."<br/>";
-    echo $exception->getFile()."<br/>";
-    echo $exception->getLine()."<br/>";
-    echo $exception->getTraceAsString()."<br/>";
-    echo $exception->getPrevious()."<br/>";
-    print_r($exception->getTrace())."<br/>";
-    echo $exception->__toString()."<br/>";
-    \Spatie\Ignition\Ignition::make()->register();
+    $exception = new ModernPHPException\ModernPHPException("exception_config.yaml");
+    $exception->start();
+    //echo $exception->getMessage()."<br/>";
+    //echo $exception->getCode()."<br/>";
+    //echo $exception->getFile()."<br/>";
+    //echo $exception->getLine()."<br/>";
+    //echo $exception->getTraceAsString()."<br/>";
+    //echo $exception->getPrevious()."<br/>";
+    //print_r($exception->getTrace())."<br/>";
+    //echo $exception->__toString()."<br/>";
 }

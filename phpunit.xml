@@ -2,10 +2,9 @@
     <testsuite name="test">
         <directory>test</directory>
     </testsuite>
-    <coverage/>
-    <source>
+    <coverage>
         <include>
             <directory suffix=".php">GamerHelpDesk</directory>
         </include>
-    </source>
+    </coverage>
 </phpunit>

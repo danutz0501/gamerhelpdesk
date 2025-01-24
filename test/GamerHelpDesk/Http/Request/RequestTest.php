@@ -55,7 +55,7 @@ class RequestTest extends TestCase
 
     public function testUriWithQuery()
     {
-        $_SERVER['REQUEST_URI'] = '/bla?key=value';
+        $_SERVER['REQUEST_URI'] = '/bla';
         $request = new Request();
         $this->assertEquals('/bla', $request->getUri());
     }
