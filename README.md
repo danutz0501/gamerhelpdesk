@@ -7,7 +7,7 @@
 - a tiny router(not for production) with named routes and attribute router;
 - in the work of adding the fs part, extending spl file system classes and adding some methods to them;
 - added a tiny system info class;
-  - get we're running on(using the directory separator);
+  - get the os we're running on(using the directory separator);
   - get the cpu usage;
   - get the memory capacity, free memory and used memory;
   - find if we're running on cli or not;
