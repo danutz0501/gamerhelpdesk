@@ -30,6 +30,8 @@ use FilesystemIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RegexIterator;
+use CallbackFilterIterator;
+use RecursiveCallbackFilterIterator;
 
 class Directory extends RecursiveDirectoryIterator
 {
@@ -63,11 +65,30 @@ class Directory extends RecursiveDirectoryIterator
      * @param string $regex
      * @return RecursiveIteratorIterator<RegexIterator>
      */
-    public function filterFilesWithRegex(string $regex): RecursiveIteratorIterator
+    public function filterWithRegex(string $regex): RecursiveIteratorIterator
     {
         return $this->iterator = new RecursiveIteratorIterator(iterator: new RegexIterator(iterator: $this->iterator, pattern: $regex));
     }
 
+    /**
+     * Filter files with a callback
+     * @param callable $callback
+     * @return RecursiveIteratorIterator<CallbackFilterIterator>
+     */
+    public function filterWithCallbackSimple(callable $callback): RecursiveIteratorIterator
+    {
+        return $this->iterator = new RecursiveIteratorIterator(iterator: new CallbackFilterIterator(iterator: $this->iterator, callback: $callback));
+    }
+
+    /**
+     * Filter files recursively with a callback
+     * @param callable $callback
+     * @return RecursiveIteratorIterator<RecursiveCallbackFilterIterator>
+     */
+    public function filterWithCallbackRecursive(callable $callback): RecursiveIteratorIterator
+    {
+        return $this->iterator = new RecursiveIteratorIterator(iterator: new RecursiveCallbackFilterIterator(iterator: $this, callback: $callback));
+    }
     /**
      * List files and folders
      * @return RecursiveIteratorIterator<Directory>
