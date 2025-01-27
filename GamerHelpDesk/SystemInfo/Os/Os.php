@@ -1,14 +1,14 @@
 <?php
 /*
- * File: GamerHelpDeskExceptionEnum.php
+ * File: Os.php
  * Project: GamerHelpDesk
- * Created Date: June 2024
- * Author: M. Dumitru Daniel (danutz0501)
+ * Created Date: January 2025
+ * Author: M. Dumitru Daniel (M. Dumitru Daniel)
  * -----
  * Last Modified:
  * Modified By:
  * -----
- * Copyright (c) 2024 M. Dumitru Daniel (danutz0501)
+ * Copyright (c) 2025 M. Dumitru Daniel (M. Dumitru Daniel)
  *  This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -24,25 +24,20 @@
  */
 declare(strict_types=1);
 
-namespace GamerHelpDesk\Exception;
+namespace GamerHelpDesk\SystemInfo\Os;
 
-/**
- * Enum for GamerHelpDeskExceptionEnum class
- */
-enum GamerHelpDeskExceptionEnum
+class Os
 {
-    /**
-     * Custom exception cases
-     */
-    case InvalidClassException;
-    case InvalidMethodException;
-    case InvalidPropertyException;
-    case InvalidArgumentException;
-    case InvalidRangeException;
-    case InvalidPathException;
-    case InvalidDateTimeException;
-    case SystemException;
-    case FileSystemException;
+    public private(set) string $os
+    {
+        get
+        {
+            return $this->os;
+        }
+    }
 
-    case RouteNotFoundException;
+    public function __construct()
+    {
+        $this->os = DIRECTORY_SEPARATOR === "\\" ? "windows" : "linux/unix";
+    }
 }
