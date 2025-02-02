@@ -33,6 +33,7 @@ use RegexIterator;
 use CallbackFilterIterator;
 use RecursiveCallbackFilterIterator;
 
+
 class Directory extends RecursiveDirectoryIterator
 {
     /**
@@ -97,5 +98,4 @@ class Directory extends RecursiveDirectoryIterator
     {
         return $this->iterator  = new RecursiveIteratorIterator(iterator: $this, mode: RecursiveIteratorIterator::SELF_FIRST);
     }
-    
 }

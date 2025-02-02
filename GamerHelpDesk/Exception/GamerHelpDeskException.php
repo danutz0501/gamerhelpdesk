@@ -41,15 +41,15 @@ class GamerHelpDeskException extends \Exception
     {
         match ($this->case)
         {
-            GamerHelpDeskExceptionEnum::InvalidArgumentException => parent::__construct(message: sprintf("BAD REQUEST - INVALID ARGUMENT %s ", $this->custom_message)),
-            GamerHelpDeskExceptionEnum::InvalidPropertyException => parent::__construct(message: sprintf("BAD REQUEST - INVALID PROPERTY %s ", $this->custom_message)),
-            GamerHelpDeskExceptionEnum::InvalidMethodException   => parent::__construct(message: sprintf("BAD REQUEST - INVALID METHOD %s ", $this->custom_message)),
-            GamerHelpDeskExceptionEnum::InvalidClassException    => parent::__construct(message: sprintf("BAD REQUEST - INVALID CLASS %s ", $this->custom_message)),
-            GamerHelpDeskExceptionEnum::InvalidRangeException    => parent::__construct(message: sprintf("BAD REQUEST - INVALID RANGE %s ", $this->custom_message)),
-            GamerHelpDeskExceptionEnum::InvalidPathException     => parent::__construct(message: sprintf("BAD REQUEST - INVALID PATH %s ", $this->custom_message)),
-            GamerHelpDeskExceptionEnum::InvalidDateTimeException => parent::__construct(message: sprintf("BAD REQUEST - INVALID DATE TIME %s ", $this->custom_message)),
-            GamerHelpDeskExceptionEnum::SystemException          => parent::__construct(message: sprintf("BAD REQUEST - SYSTEM ERROR %s", $this->custom_message)),
-            GamerHelpDeskExceptionEnum::FileSystemException      => parent::__construct(message: sprintf("BAD REQUEST - FILE ERROR %s", $this->custom_message)),
+            GamerHelpDeskExceptionEnum::InvalidArgumentException => parent::__construct(message: sprintf(format: "BAD REQUEST - INVALID ARGUMENT %s ", values: $this->custom_message)),
+            GamerHelpDeskExceptionEnum::InvalidPropertyException => parent::__construct(message: sprintf(format: "BAD REQUEST - INVALID PROPERTY %s ", values: $this->custom_message)),
+            GamerHelpDeskExceptionEnum::InvalidMethodException   => parent::__construct(message: sprintf(format: "BAD REQUEST - INVALID METHOD %s ", values: $this->custom_message)),
+            GamerHelpDeskExceptionEnum::InvalidClassException    => parent::__construct(message: sprintf(format: "BAD REQUEST - INVALID CLASS %s ", values: $this->custom_message)),
+            GamerHelpDeskExceptionEnum::InvalidRangeException    => parent::__construct(message: sprintf(format: "BAD REQUEST - INVALID RANGE %s ", values: $this->custom_message)),
+            GamerHelpDeskExceptionEnum::InvalidPathException     => parent::__construct(message: sprintf(format: "BAD REQUEST - INVALID PATH %s ", values: $this->custom_message)),
+            GamerHelpDeskExceptionEnum::InvalidDateTimeException => parent::__construct(message: sprintf(format: "BAD REQUEST - INVALID DATE TIME %s ", values: $this->custom_message)),
+            GamerHelpDeskExceptionEnum::SystemException          => parent::__construct(message: sprintf(format: "BAD REQUEST - SYSTEM ERROR %s", values: $this->custom_message)),
+            GamerHelpDeskExceptionEnum::FileSystemException      => parent::__construct(message: sprintf(format: "BAD REQUEST - FILE ERROR %s", values: $this->custom_message)),
             
             GamerHelpDeskExceptionEnum::RouteNotFoundException   => parent::__construct(message: "BAD REQUEST - ROUTE NOT FOUND!", code: 404),
         };
