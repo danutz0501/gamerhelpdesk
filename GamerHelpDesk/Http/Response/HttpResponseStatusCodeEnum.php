@@ -26,8 +26,15 @@ declare(strict_types = 1);
 
 namespace GamerHelpDesk\Http\Response;
 
+/**
+ * Class HttpResponseStatusCodeEnum
+ * @package GamerHelpDesk\Http\Response
+ */
 enum HttpResponseStatusCodeEnum: int
 {
+    /**
+     * HTTP Status Codes
+     */
     case OK = 200;
     case CREATED = 201;
     case ACCEPTED = 202;
@@ -44,30 +51,74 @@ enum HttpResponseStatusCodeEnum: int
     case SERVICE_UNAVAILABLE = 503;
     case GATEWAY_TIMEOUT = 504;
 
+    /**
+     * Returns the HTTP status code represented by this enum case.
+     *
+     * @return int The integer value of the HTTP status code.
+     */
     public function getStatusCode(): int
     {
         return $this->value;
     }
 
+    /**
+     * Gets the HTTP status code represented by this enum case as a string.
+     *
+     * This is the same as the enum case name.
+     *
+     * @return string The HTTP status code as a string.
+     */
     public function getStatusText(): string
     {
         return $this->name; 
     }
 
+    /**
+     * Gets the HTTP status code represented by this enum case as a string.
+     *
+     * This is the same as the enum case name.
+     *
+     * @return string The HTTP status code as a string.
+     */
     public function getStatus(): string
     {
         return $this->name . ' ' . $this->value;
     }
 
+    /**
+     * Gets the HTTP status code represented by this enum case as a string.
+     *
+     * The returned string is in the format "XXX <name>", where "XXX" is the
+     * HTTP status code and "<name>" is the string representation of the enum
+     * case.
+     *
+     * @return string The HTTP status code as a string.
+     */
     public function getStatusWithText(): string
     {
         return $this->value . ' ' . $this->name;
     }   
     
+    /**
+     * Gets the label for this HTTP status code.
+     *
+     * The label is a human-readable string that describes the HTTP status code.
+     *
+     * @return string The label for this HTTP status code.
+     */
     public function label(): string
     {
         return static::getLabel($this);
     }
+    /**
+     * Gets the label for this HTTP status code.
+     *
+     * The label is a human-readable string that describes the HTTP status code.
+     *
+     * @param self $statusCode The HTTP status code to get the label for.
+     *
+     * @return string The label for the given HTTP status code.
+     */
     public static function getLabel(self $statusCode): string
     {
         return match ($statusCode) {

@@ -28,6 +28,7 @@ namespace GamerHelpDesk\Http\Router;
 
 /**
  * Route class(using regexp)
+ * @package GamerHelpDesk\Http\Router
  */
 class Route
 {

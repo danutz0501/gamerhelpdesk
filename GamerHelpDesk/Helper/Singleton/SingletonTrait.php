@@ -28,6 +28,7 @@ namespace GamerHelpDesk\Helper\Singleton;
 
 /**
  * Trait for implementing Singleton pattern
+ * @package GamerHelpDesk\Helper\Singleton
  */
 trait SingletonTrait
 {

@@ -33,7 +33,10 @@ use RegexIterator;
 use CallbackFilterIterator;
 use RecursiveCallbackFilterIterator;
 
-
+/**
+ * Simple directory class to handle directory operations
+ * @package GamerHelpDesk\FileSystem\Directory
+ */
 class Directory extends RecursiveDirectoryIterator
 {
     /**

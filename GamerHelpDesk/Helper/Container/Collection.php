@@ -26,10 +26,16 @@ declare(strict_types=1);
 
 namespace GamerHelp\Helper\Container;
 
+use IteratorAggregate;
+use Countable;
+use ArrayIterator;
+use Traversable;
+
 /**
  * Implementing a simple collection class.
+ * @package GamerHelpDesk\Helper\Container
  */
-class Collection implements \IteratorAggregate, \Countable
+class Collection implements IteratorAggregate, Countable
 {
     /**
      * Constructor and initialization of the collection.
@@ -41,11 +47,11 @@ class Collection implements \IteratorAggregate, \Countable
     /**
      * Implementing the IteratorAggregate interface.
      *
-     * @return \Traversable
+     * @return Traversable
      */
-    public function getIterator(): \Traversable
+    public function getIterator(): Traversable
     {
-        return new \ArrayIterator($this->collection);
+        return new ArrayIterator($this->collection);
     }
 
     /**

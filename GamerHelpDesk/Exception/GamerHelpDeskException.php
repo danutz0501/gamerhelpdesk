@@ -28,6 +28,7 @@ namespace GamerHelpDesk\Exception;
 
 /**
  * Internal exception class for GamerHelpDesk
+ * @package GamerHelpDesk\Exception
  */
 class GamerHelpDeskException extends \Exception
 {

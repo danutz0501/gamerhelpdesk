@@ -28,6 +28,7 @@ namespace GamerHelpDesk\Exception;
 
 /**
  * Enum for GamerHelpDeskExceptionEnum class
+ * @package GamerHelpDesk\Exception
  */
 enum GamerHelpDeskExceptionEnum
 {

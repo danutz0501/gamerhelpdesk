@@ -34,6 +34,10 @@ use GamerHelpDesk\Helper\Singleton\SingletonTrait;
 use GamerHelpDesk\Http\Request\Request;
 use GamerHelpDesk\Http\Response\Response;
 
+/**
+ * Router class for handling the routes.
+ * @package GamerHelpDesk\Http\Router
+ */
 class Router
 {
     /**
@@ -61,7 +65,7 @@ class Router
 
     public function addNamedRoute(string $verb, string $route, string $method): void
     {
-        $this->{strtolower($verb)}->add(new Route($route, ltrim($method, '\\')));
+        $this->{strtolower($verb)}->add(new Route($route, ltrim($method, characters: '\\')));
     }
 }
 //TODO: finish class

@@ -29,6 +29,10 @@ namespace GamerHelpDesk\FileSystem;
 use GamerHelpDesk\FileSystem\File\File;
 use GamerHelpDesk\FileSystem\Directory\Directory;
 
+/**
+ * Class FileSystem
+ * @package GamerHelpDesk\FileSystem
+ */
 class FileSystem
 {
 

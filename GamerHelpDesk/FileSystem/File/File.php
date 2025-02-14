@@ -29,6 +29,10 @@ namespace GamerHelpDesk\FileSystem\File;
 use SimpleXMLElement;
 use SplFileObject;
 
+/**
+ * Simple file class to handle file operations
+ * @package GamerHelpDesk\FileSystem\File
+ */
 class File extends SplFileObject
 {
     /**
@@ -140,6 +144,11 @@ class File extends SplFileObject
         return false;
     }
 
+    /**
+     * Read an XML file
+     * @param string $filename
+     * @return bool|SimpleXMLElement
+     */
     public function readXml(string $filename): bool|SimpleXMLElement
     {
         if($this->isReadable())

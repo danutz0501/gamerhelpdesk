@@ -25,6 +25,11 @@
 declare(strict_types=1);
 
 namespace GamerHelpDesk\Http\Request;
+
+/**
+ * Request class for handling HTTP requests.
+ * @package GamerHelpDesk\Http\Request
+ */
 class Request
 {
     /**

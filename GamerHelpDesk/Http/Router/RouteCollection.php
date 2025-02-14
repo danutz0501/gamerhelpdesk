@@ -28,6 +28,7 @@ namespace GamerHelpDesk\Http\Router;
 
 /**
  * Custom route collection 
+ * @package GamerHelpDesk\Http\Router
  */
 class RouteCollection extends \GamerHelp\Helper\Container\Collection
 {

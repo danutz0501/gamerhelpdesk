@@ -29,6 +29,7 @@ namespace GamerHelpDesk\Http\Router;
 
 /**
  * Extending Route class for using PHP attributes
+ * @package GamerHelpDesk\Http\Router
  */
 class AttributeRoute extends Route
 {
