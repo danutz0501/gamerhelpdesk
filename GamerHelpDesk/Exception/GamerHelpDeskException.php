@@ -33,7 +33,6 @@ class GamerHelpDeskException extends \Exception
 {
     /**
      * Constructs a new instance of the GamerHelpDeskException class.
-     *
      * @param GamerHelpDeskExceptionEnum $case The exception case.
      * @param string $custom_message Message in exception
      */
