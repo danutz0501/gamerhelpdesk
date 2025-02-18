@@ -33,6 +33,8 @@ use GamerHelpDesk\Exception\{
 use GamerHelpDesk\Helper\Singleton\SingletonTrait;
 use GamerHelpDesk\Http\Request\Request;
 use GamerHelpDesk\Http\Response\Response;
+use ReflectionClass;
+use ReflectionException;
 
 /**
  * Router class for handling the routes.
@@ -63,9 +65,46 @@ class Router
     )
     {}
 
+    public function getRequest(): Request
+    {
+        return $this->request;
+    }
+
     public function addNamedRoute(string $verb, string $route, string $method): void
     {
         $this->{strtolower($verb)}->add(new Route($route, ltrim($method, characters: '\\')));
+    }
+
+    /**
+     * Returns the routes as an array.
+     *
+     * @return array The array of routes. The first element is an array of GET routes, the second element is an array of POST routes.
+     */
+    public function getRoutesArray(): array
+    {
+        return [iterator_to_array($this->get), iterator_to_array($this->post)];
+    }
+    /**
+     * Checks if the given class and method is public.
+     *
+     * @param array $class_and_method_array The array with the class name as the first element and the method name as the second element.
+     *
+     * @return bool True if the method is public, otherwise false.
+     */
+    private function checkMethod(array $class_and_method_array): bool
+    {
+        try
+        {
+            $reflection = new ReflectionClass(objectOrClass: $class_and_method_array[0]);
+            if($reflection->getMethod(name: $class_and_method_array[1])->isPublic())
+            {
+                return true;
+            }
+        }
+        catch (ReflectionException $e)
+        {}
+        return false;
+
     }
 }
 //TODO: finish class

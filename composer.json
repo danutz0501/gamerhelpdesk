@@ -15,7 +15,8 @@
             "GamerHelpDesk\\": "GamerHelpDesk",
             "Stream\\": "Stream",
             "Internal\\": "Internal",
-            "Middleware\\": "Middleware"
+            "Middleware\\": "Middleware",
+            "View\\": "View"
         }
     }
 }
