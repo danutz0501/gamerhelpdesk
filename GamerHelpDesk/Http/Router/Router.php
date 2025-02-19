@@ -65,14 +65,53 @@ class Router
     )
     {}
 
-    public function getRequest(): Request
+    public function run(): mixed
     {
-        return $this->request;
+        if(count($this->{strtolower(string: $this->request->getRequestMethod())}) === 0) 
+        {
+            throw new GamerHelpDeskException(GamerHelpDeskExceptionEnum::RouteNotFoundException, "No routes defined for the requested method.");
+        }
+
+        foreach ($this->{strtolower(string: $this->request->getRequestMethod())} as $key => $route) 
+        {
+            if($route->verify($this->request->getUri())) 
+            {
+                return $route->execute(request: $this->request, response: $this->response);
+            }
+        }
+        throw new GamerHelpDeskException(GamerHelpDeskExceptionEnum::RouteNotFoundException, "Route not found.");
+    
     }
 
     public function addNamedRoute(string $verb, string $route, string $method): void
     {
-        $this->{strtolower($verb)}->add(new Route($route, ltrim($method, characters: '\\')));
+        $this->{strtolower(string: $verb)}->add(new Route(regexToCompile: $route, method: ltrim(string: $method, characters: '\\')));
+    }
+
+    /**
+     * Adds all the routes from the given classes using the AttributeRoute attribute.
+     *
+     * @param array $attribute_class_array The array of classes to add the routes from.
+     */
+    public function addAttributeClass(array $attribute_class_array): void
+    {
+        foreach ($attribute_class_array as $attribute_class) 
+        {
+            preg_replace(pattern: "/\\\\/", replacement: "\\", subject: $attribute_class);
+            $reflection = new ReflectionClass(objectOrClass: $attribute_class);
+            foreach ($reflection->getMethods() as $method) 
+            {
+                if ($method->isPublic()) 
+                {
+                    $attributes = $method->getAttributes(name: 'AttributeRoute');
+                    foreach ($attributes as $attribute) 
+                    {
+                        $attribute_instance = $attribute->newInstance();
+                        $this->addNamedRoute(verb: $attribute_instance->verb, route: $attribute_instance->regexToCompile, method: $attribute_instance->method);
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -82,29 +121,36 @@ class Router
      */
     public function getRoutesArray(): array
     {
-        return [iterator_to_array($this->get), iterator_to_array($this->post)];
+        return [iterator_to_array(iterator: $this->get), iterator_to_array(iterator: $this->post)];
     }
-    /**
-     * Checks if the given class and method is public.
-     *
-     * @param array $class_and_method_array The array with the class name as the first element and the method name as the second element.
-     *
-     * @return bool True if the method is public, otherwise false.
-     */
-    private function checkMethod(array $class_and_method_array): bool
-    {
-        try
-        {
-            $reflection = new ReflectionClass(objectOrClass: $class_and_method_array[0]);
-            if($reflection->getMethod(name: $class_and_method_array[1])->isPublic())
-            {
-                return true;
-            }
-        }
-        catch (ReflectionException $e)
-        {}
-        return false;
 
+    /**
+     * Retrieves the current request object.
+     *
+     * @return Request The current request object.
+     */
+
+    public function getRequest(): Request
+    {
+        return $this->request;
+    }
+
+    /**
+     * Prepares the callback for the route.
+     *
+     * @return array The first element is the class, the second element is the method.
+     */
+    private function prepareCallback(): array
+    {
+        if(str_contains(haystack: $this->method, needle: '::'))
+            return explode(separator: '::', string: $this->method);
+        else
+        {
+            $temp = explode(separator: '\\', string: $this->method);
+            $method = array_pop($temp);
+            $class  = implode(separator: '\\', array: $temp);
+            return [$class, $method];
+        }
     }
 }
 //TODO: finish class
