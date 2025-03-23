@@ -147,7 +147,7 @@ class Router
         else
         {
             $temp = explode(separator: '\\', string: $this->method);
-            $method = array_pop($temp);
+            $method = array_pop(array: $temp);
             $class  = implode(separator: '\\', array: $temp);
             return [$class, $method];
         }

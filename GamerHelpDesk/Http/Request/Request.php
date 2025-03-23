@@ -138,7 +138,7 @@ class Request
      */
     public function getRawBody(): string
     {
-        return file_get_contents("php://input");
+        return file_get_contents(filename: "php://input");
     }
 
     /**
