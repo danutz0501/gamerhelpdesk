@@ -1,6 +1,7 @@
 {
     "dependencies": {
         "bootstrap": "^5.3.3",
+        "bootstrap-icons": "^1.10.5",
         "browser-sync": "^3.0.2",
         "cssnano": "^7.0.3",
         "gulp": "^5.0.0",

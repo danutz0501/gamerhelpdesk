@@ -76,13 +76,12 @@ try
 } 
 catch (Throwable $exception) 
 {
-    $exception = new ModernPHPException\ModernPHPException("exception_config.yaml");
-    $exception->start();
-    //echo $exception->getMessage()."<br/>";
-    //echo $exception->getCode()."<br/>";
+   
+    echo $exception->getMessage()."<br/>";
+    echo $exception->getCode()."<br/>";
     //echo $exception->getFile()."<br/>";
     //echo $exception->getLine()."<br/>";
-    //echo $exception->getTraceAsString()."<br/>";
+    echo $exception->getTraceAsString()."<br/>";
     //echo $exception->getPrevious()."<br/>";
     //print_r($exception->getTrace())."<br/>";
     //echo $exception->__toString()."<br/>";
