@@ -28,7 +28,8 @@ include_once __DIR__ . '/../partials/default-head.php';
 <body>
     <div class="container-fluid">
         <?php include_once __DIR__ . '/../partials/menu.php'; ?>
-        Home page
+        <a class="weatherwidget-io" href="https://forecast7.com/ro/44d4326d10/bucharest/" data-label_1="BUCHAREST" data-label_2="WEATHER" data-theme="beige" >BUCHAREST WEATHER</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');</script>
      </div>
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
