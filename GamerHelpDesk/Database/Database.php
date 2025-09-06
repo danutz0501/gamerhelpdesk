@@ -77,8 +77,46 @@ class Database
 
      protected function createTables(): void
      {
-        //$sql = "";
-        // Execute the SQL to create the table
-        //$this->pdo->exec(statement: $sql);
+        $sql = "CREATE TABLE IF NOT EXISTS notes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            content TEXT NOT NULL
+        )";
+        $this->pdo->exec(statement: $sql);
+        $sql = "CREATE TABLE IF NOT EXISTS speed_dial (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            url TEXT NOT NULL,
+            image TEXT NOT NULL,
+            description TEXT NOT NULL,
+            category TEXT NOT NULL
+        )";
+        $this->pdo->exec(statement: $sql);
+        $sql = "CREATE TABLE IF NOT EXISTS categories (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL
+        )";
+        $this->pdo->exec(statement: $sql);
+        $sql ="CREATE TABLE IF NOT EXISTS servicess (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            description TEXT NOT NULL,
+            image TEXT NOT NULL,
+            url TEXT NOT NULL
+        )";
+        $this->pdo->exec(statement: $sql);
+        $sql = "CREATE TABLE IF NOT EXISTS media (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            location TEXT NOT NULL,
+            type TEXT NOT NULL
+        )";
+        $this->pdo->exec(statement: $sql);
+        $sql = "CREATE TABLE IF NOT EXISTS slideshow (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            content TEXT NOT NULL
+        )";
+        $this->pdo->exec(statement: $sql);
      }
 }
