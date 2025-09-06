@@ -23,5 +23,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 declare(strict_types=1);
+include_once __DIR__ . '/../partials/default-head.php';
 ?>
+<body>
 ending
+<?php include_once __DIR__ . '/../partials/stream-footer.php'; ?>

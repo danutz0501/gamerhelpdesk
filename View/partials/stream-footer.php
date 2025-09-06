@@ -1,6 +1,6 @@
 <?php 
 /*
- * File: stream-starting.php
+ * File: stream-footer.php
  * Project: GamerHelpDesk
  * Created Date: September 2025
  * Author: danutz0501 (M. Dumitru Daniel)
@@ -23,8 +23,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 declare(strict_types=1);
-include_once __DIR__ . '/../partials/default-head.php';
 ?>
-<body>
-starting
-<?php include_once __DIR__ . '/../partials/stream-footer.php'; ?>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12" id="stream-footer">
+            <button class="btn btn-dark" onclick="history.back()">Go back</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
