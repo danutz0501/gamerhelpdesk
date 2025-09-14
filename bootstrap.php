@@ -84,6 +84,7 @@ try {
         $router->addNamedRoute(verb: "GET", route: "/notes", method: "Internal\\Internal::notes");
         /**
          * Run the router
+         * This will start the application
          */
         $router->run();
     }

@@ -49,3 +49,6 @@ Thumbs.db
 .env.local  
 
 /stubs
+
+#sqlite databases
+*.db
