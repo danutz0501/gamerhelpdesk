@@ -35,5 +35,7 @@ namespace GamerHelpDesk\Http\Response;
  */
 class Response
 {
+    
+
     //TODO: Implement the Response class methods and properties
 }
