@@ -1,5 +1,6 @@
 # Internal
-### It's just a simple package, a script, written in php for personal use. I just want a speeddial like and a internal "site" that I'm going to link to from obs for different scenes
+### It's just a simple package, a script, written in php for personal use. I just want a speeddial like and a internal "site" that I'm going to link to from obs for different scenes, and a tiny homepage for my docker services
+
 
 ***
 
