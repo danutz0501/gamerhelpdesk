@@ -57,7 +57,7 @@ class GamerHelpDeskException extends Exception
             GamerHelpDeskExceptionEnum::SystemException          => parent::__construct(message: sprintf( "BAD REQUEST - SYSTEM ERROR %s"      ,  $this->custom_message)),
             GamerHelpDeskExceptionEnum::FileSystemException      => parent::__construct(message: sprintf( "BAD REQUEST - FILE ERROR %s"        ,  $this->custom_message)),
             
-            GamerHelpDeskExceptionEnum::RouteNotFoundException   => parent::__construct(message: "BAD REQUEST - ROUTE NOT FOUND!", code: 404),
+            GamerHelpDeskExceptionEnum::RouteNotFoundException   => parent::__construct(message: sprintf( "BAD REQUEST - ROUTE NOT FOUND! %s"  ,  $this->custom_message)),
         };
     }
 }

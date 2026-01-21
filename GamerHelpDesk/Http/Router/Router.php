@@ -165,6 +165,7 @@ class Router
         }
         foreach($this->{strtolower(string: $this->request->http_method).'_routes'} as $key => $route)
         {
+            // Verify the route
             if($route->verify(url: $this->request->clean_uri))
             {
                 // Route matched, prepare to call the controller method

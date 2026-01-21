@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace GamerHelpDesk\Http\Request;
 
+use URI\Rfc3986\Uri;
+
 /**
  * Request class
  * Handles HTTP request data
@@ -42,6 +44,22 @@ class Request
      * @var string
      */
     private const string HTTP_VERBS = '/GET|POST/';
+
+    /**
+     * The URI of the request
+     * This is a object that represents the URI of the request.
+     * It is an instance of the Uri class. Used to parse and manipulate URIs.
+     * It is set in the constructor.
+     * Public getter, protected setter.
+     * @var object URI\Rfc3986\Uri
+     */
+    public protected(set) object $uri
+    {
+        get
+        {
+            return $this->uri;
+        }
+    }
 
     /**
      * The raw URI of the request
@@ -139,7 +157,8 @@ class Request
      */
     public function __construct()
     {
-        $this->raw_uri = $_SERVER['REQUEST_URI'] ?? '/';
+        $this->uri = new Uri($_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+        $this->raw_uri = $this->uri->getPath() ?? '/';
         $this->setHttpMethod();
         $this->setIsAjax();
         $this->setHeaders();
