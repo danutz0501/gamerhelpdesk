@@ -25,9 +25,12 @@
 declare(strict_types=1);
 
 namespace GamerHelpDesk\Helper\Collection;
+
 use IteratorAggregate;
 use Countable;
+use JsonSerializable;
 use Traversable;
+use ArrayIterator;
 
 /**
  * Collection class
@@ -38,22 +41,22 @@ use Traversable;
  * @package GamerHelpDesk\Helper\Collection
  * @version 1.0.0
  */
-class Collection implements IteratorAggregate, Countable
+class Collection implements IteratorAggregate, Countable, JsonSerializable
 {
     /**
      * The items in the collection.
      * @var array
      */
-    public function __construct( protected array $collection = []) {}
+    public function __construct(protected array $collection = []) {}
 
     /**
      * Implementing iterator aggregate interface
      * This method returns an iterator for the collection items.
-     * @return \ArrayIterator
+     * @return ArrayIterator
      */
     public function getIterator(): Traversable
     {
-        return new \ArrayIterator($this->collection);
+        return new ArrayIterator(array: $this->collection);
     }
 
     /**
@@ -63,6 +66,26 @@ class Collection implements IteratorAggregate, Countable
      */
     public function count(): int
     {
-        return count($this->collection);
+        return count(value: $this->collection);
+    }
+
+    /**
+     * Implementing json serializable interface
+     * This method returns the collection items as an array for JSON serialization.
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return $this->collection;
+    }
+
+    /**
+     * Check if the collection is empty
+     * This method returns true if the collection is empty, false otherwise.
+     * @return bool
+     */
+    public function isEmpty(): bool
+    {
+        return empty($this->collection);
     }
 }
