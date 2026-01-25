@@ -187,7 +187,6 @@ class Request
      */
     //TODO: Use filter_input_array for better security
     //TODO: Use new Uri class methods for URI manipulation and validation
-    //TODO: Use query and fragment parts of the URI
     public function __construct()
     {
         $this->uri          = new Uri($_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
@@ -253,6 +252,9 @@ class Request
      */
     protected function setCleanUri(): void
     {
-        $this->clean_uri = preg_replace(pattern: '/[^\da-z\-\/]/i', replacement: '', subject: filter_var(value: $this->raw_uri, filter: FILTER_SANITIZE_URL));
+        //$this->clean_uri = preg_replace(pattern: '/[^\da-z\-\/]/i', replacement: '', subject: filter_var(value: $this->raw_uri, filter: FILTER_SANITIZE_URL));
+        $this->clean_uri = $this->raw_uri
+            |>(fn($uri): mixed => filter_var(value: $uri, filter: FILTER_SANITIZE_URL))
+            |>(fn($uri): array|string|null => preg_replace(pattern: '/[^\da-z\-\/]/i', replacement: '', subject: $uri));
     }
 }
