@@ -77,6 +77,36 @@ class Request
     }
 
     /**
+     * The query string of the request
+     * This is a string that represents the query string of the request.
+     * It is set in the constructor.
+     * Public getter, protected setter.
+     * @var string
+     */
+
+    public protected(set) string $query_string
+    {
+        get
+        {
+            return $this->query_string;
+        }
+    }
+
+    /**
+     * The fragment of the request
+     * This is a string that represents the fragment of the request.
+     * It is set in the constructor.
+     * Public getter, protected setter.
+     * @var string
+     */
+    public protected(set) string $fragment
+    {
+        get
+        {
+            return $this->fragment;
+        }
+    }
+    /**
      * The HTTP method of the request
      * This is a string that represents the HTTP method of the request.
      * It is set in the constructor.
@@ -160,8 +190,10 @@ class Request
     //TODO: Use query and fragment parts of the URI
     public function __construct()
     {
-        $this->uri = new Uri($_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-        $this->raw_uri = $this->uri->getPath() ?? '/';
+        $this->uri          = new Uri($_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+        $this->raw_uri      = $this->uri->getPath() ?? '/';
+        $this->query_string = $this->uri->getQuery() ?? '';
+        $this->fragment     = $this->uri->getFragment() ?? '';
         $this->setHttpMethod();
         $this->setIsAjax();
         $this->setHeaders();
