@@ -155,6 +155,9 @@ class Request
      * Constructor
      * Initializes the request object with data from the global variables
      */
+    //TODO: Use filter_input_array for better security
+    //TODO: Use new Uri class methods for URI manipulation and validation
+    //TODO: Use query and fragment parts of the URI
     public function __construct()
     {
         $this->uri = new Uri($_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
@@ -172,6 +175,7 @@ class Request
      * If the method is not set or is not a valid HTTP verb, it defaults to 'GET'.
      * @return void
      */
+    //TODO: Use new php 8.5 pipeline operator for cleaner code |>
     protected function setHttpMethod(): void
     {
         $this->http_method = isset($_SERVER['REQUEST_METHOD']) && preg_match(pattern: self::HTTP_VERBS, subject: strtoupper(string: $_SERVER['REQUEST_METHOD'])) ? strtoupper(string: $_SERVER['REQUEST_METHOD']) : 'GET';

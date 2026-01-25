@@ -157,9 +157,18 @@ class Router
         $this->post_routes = new RouteCollection();
     }
 
+    /**
+     * Run the router
+     * This method is responsible for routing the HTTP request to the appropriate controller method.
+     * @throws GamerHelpDeskException
+     */
+    //TODO: Refactor this method to reduce complexity
+    //TODO: Use isEmpty instead of count === 0
+    //TODO: Use array_key_exists instead of isset
+    //TODO: Use Strategy pattern for routing
     public function run(): void 
     {
-        if(count($this->{strtolower(string: $this->request->http_method).'_routes'}) === 0)
+        if(count(value: $this->{strtolower(string: $this->request->http_method).'_routes'}) === 0)
         {
             throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::RouteNotFoundException, custom_message: "No routes defined for the HTTP method: {$this->request->http_method} and method: {$this->method}");
         }
