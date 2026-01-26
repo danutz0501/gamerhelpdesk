@@ -108,7 +108,6 @@ class Route
     }
 
     /**
-     * Summary of verify
      * This method verifies if the given URL matches the route's regex pattern.
      * If it matches, it extracts the parameters and stores them in the params property.
      * @param string $url The URL to verify against the route's pattern.
@@ -125,7 +124,6 @@ class Route
     }
 
     /**
-     * Summary of compilePattern
      * This method compiles the route pattern into a regex pattern.
      * It replaces the defined patterns with their corresponding regex patterns.
      * @return void
