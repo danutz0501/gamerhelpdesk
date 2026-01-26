@@ -39,7 +39,14 @@ use RecursiveIteratorIterator;
  */
 class FileSystem
 {
-    
+    /**
+     * Constructor for FileSystem class.
+     */
+    public function __construct()
+    {
+
+    }
+
     /**
      * Reads the content of a file.
      *
