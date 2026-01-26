@@ -280,4 +280,30 @@ class FileSystem
 
         return $files;
     }
+
+    /**
+     * Lists the content (files and directories) in a directory.
+     *
+     * @param string $directoryPath The path to the directory.
+     * @return array An array of file and directory paths.
+     * @throws GamerHelpDeskException If the directory does not exist.
+     */
+    public function listContentInDirectory(string $directoryPath): array
+    {
+        if (!is_dir(filename: $directoryPath)) 
+        {
+            throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Directory not found: " . $directoryPath);
+        }
+
+        $contents = [];
+        $dirIterator = new RecursiveDirectoryIterator(directory: $directoryPath, flags: RecursiveDirectoryIterator::SKIP_DOTS);
+        $iterator    = new RecursiveIteratorIterator(iterator: $dirIterator, mode: RecursiveIteratorIterator::SELF_FIRST);
+
+        foreach ($iterator as $fileInfo) 
+        {
+            $contents[] = $fileInfo->getPathname();
+        }
+
+        return $contents;
+    }
 }
