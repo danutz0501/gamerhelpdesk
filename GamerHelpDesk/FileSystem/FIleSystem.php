@@ -49,17 +49,17 @@ class FileSystem
      */
     public function readFile(string $filePath): string
     {
-        if (!file_exists($filePath)) 
+        if (!file_exists(filename: $filePath)) 
         {
             throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"File not found: " . $filePath);
         }
 
-        if (!is_readable($filePath)) 
+        if (!is_readable(filename: $filePath)) 
         {
             throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"File is not readable: " . $filePath);
         }
 
-        return file_get_contents($filePath);
+        return file_get_contents(filename: $filePath);
     }
 
     /**
@@ -74,9 +74,9 @@ class FileSystem
     {
         if ($append)
         {
-            $content = $this->readFile($filePath) . $content;
+            $content = $this->readFile(filePath: $filePath) . $content;
         }
-        $result = file_put_contents($filePath, $content);
+        $result = file_put_contents(filename: $filePath, data: $content);
         if ($result === false) 
         {
             throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Failed to write to file: " . $filePath);
@@ -92,20 +92,20 @@ class FileSystem
      */
     public function deleteFile(string $filePath, string $allowedBasePath): void
     {
-        $filePath        = realpath($filePath);
-        $allowedBasePath = realpath($allowedBasePath);
+        $filePath        = realpath(path: $filePath);
+        $allowedBasePath = realpath(path: $allowedBasePath);
 
-        if (!file_exists($filePath)) 
+        if (!file_exists(filename: $filePath)) 
         {
             throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"File not found: " . $filePath);
         }
 
-        if (strpos($filePath, $allowedBasePath) !== 0) 
+        if (strpos(haystack: $filePath, needle: $allowedBasePath) !== 0) 
         {
             throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Unauthorized file deletion attempt: " . $filePath);
         }
 
-        if (!unlink($filePath)) 
+        if (!unlink(filename: $filePath)) 
         {
             throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Failed to delete file: " . $filePath);
         }
@@ -120,43 +120,43 @@ class FileSystem
      */
     public function deleteDirectory(string $directoryPath, string $allowedBasePath): void
     {
-        $directoryPath    = realpath($directoryPath);
-        $allowedBasePath  = realpath($allowedBasePath);
+        $directoryPath    = realpath(path: $directoryPath);
+        $allowedBasePath  = realpath(path: $allowedBasePath);
 
-        if (!is_dir($directoryPath)) 
+        if (!is_dir(filename: $directoryPath)) 
         {
             throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Directory not found: " . $directoryPath);
         }
 
-        if (strpos($directoryPath, $allowedBasePath) !== 0) 
+        if (strpos(haystack: $directoryPath, needle: $allowedBasePath) !== 0) 
         {
             throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Unauthorized directory deletion attempt: " . $directoryPath);
         }
 
         $items = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($directoryPath, RecursiveDirectoryIterator::SKIP_DOTS),
-            RecursiveIteratorIterator::CHILD_FIRST
+            iterator: new RecursiveDirectoryIterator(directory: $directoryPath, flags: RecursiveDirectoryIterator::SKIP_DOTS),
+            mode: RecursiveIteratorIterator::CHILD_FIRST
         );
 
         foreach ($items as $item) 
         {
             if ($item->isDir()) 
             {
-                if(!rmdir($item->getPathname())) 
+                if(!rmdir(directory: $item->getPathname())) 
                 {
                     throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Failed to delete directory: " . $item->getPathname());
                 }
             }
             else 
             {
-                if(!unlink($item->getPathname())) 
+                if(!unlink(filename: $item->getPathname())) 
                 {
                     throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Failed to delete file: " . $item->getPathname());
                 }
             }
         }
 
-        if(!rmdir($directoryPath))
+        if(!rmdir(directory: $directoryPath))
             {
                 throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Failed to delete directory: " . $directoryPath);
             }
@@ -172,13 +172,84 @@ class FileSystem
      */
     public function createDirectory(string $directoryPath, int $permissions = 0755, bool $recursive = true): void
     {
-        if (!is_dir($directoryPath)) 
+        if (!is_dir(filename: $directoryPath)) 
         {
-            if (!mkdir($directoryPath, $permissions, $recursive)) 
+            if (!mkdir(directory: $directoryPath, permissions: $permissions, recursive: $recursive)) 
             {
                 throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Failed to create directory: " . $directoryPath);
             }
         }
+    }
+
+    /**
+     * Copies a file from source to destination.
+     *
+     * @param string $sourcePath The path to the source file.
+     * @param string $destinationPath The path to the destination file.
+     * @param bool $overwrite Whether to overwrite the destination file if it exists.
+     * @throws GamerHelpDeskException If the source file does not exist, the destination file exists and overwrite is false, or the copy fails.
+     */
+    public function copyFile(string $sourcePath, string $destinationPath, bool $overwrite = false): void
+    {
+        if (!file_exists(filename: $sourcePath)) 
+        {
+            throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Source file not found: " . $sourcePath);
+        }
+
+        if (file_exists(filename: $destinationPath) && !$overwrite) 
+        {
+            throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Destination file already exists and overwrite is set to false: " . $destinationPath);
+        }
+
+        if (!is_dir(filename: dirname(path: $destinationPath))) 
+        {
+            throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Destination directory does not exist: " . dirname(path: $destinationPath));
+        }
+
+        if (!copy(from: $sourcePath, to: $destinationPath)) 
+        {
+            throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Failed to copy file from " . $sourcePath . " to " . $destinationPath);
+        }
+    }
+
+    /**
+     * Moves a file from source to destination.
+     *
+     * @param string $sourcePath The path to the source file.
+     * @param string $destinationPath The path to the destination file.
+     * @param bool $overwrite Whether to overwrite the destination file if it exists.
+     * @param bool $retry Whether to retry the move operation using copy and delete if rename fails.
+     * @throws GamerHelpDeskException If the source file does not exist, the destination file exists and overwrite is false, or the move fails.
+     */
+    public function moveFile(string $sourcePath, string $destinationPath, bool $overwrite = false, bool $retry = false): void
+    {
+        if (!file_exists(filename: $sourcePath)) 
+        {
+            throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Source file not found: " . $sourcePath);
+        }
+
+        if (file_exists(filename: $destinationPath) && !$overwrite) 
+        {
+            throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Destination file already exists and overwrite is set to false: " . $destinationPath);
+        }
+
+        if (!is_dir(filename: dirname(path: $destinationPath))) 
+        {
+            throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Destination directory does not exist: " . dirname(path: $destinationPath));
+        }
+
+        if (!rename(from: $sourcePath, to: $destinationPath) && !$retry) 
+        {
+            throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Failed to move file from " . $sourcePath . " to " . $destinationPath);
+        }
+
+        if($retry)
+            {
+                if (!copy(from: $sourcePath, to: $destinationPath) && !unlink(filename: $sourcePath)) 
+                {
+                    throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Failed to move file from " . $sourcePath . " to " . $destinationPath);
+                }
+            }
     }
 
     /**
@@ -190,14 +261,14 @@ class FileSystem
      */
     public function listFilesInDirectory(string $directoryPath): array
     {
-        if (!is_dir($directoryPath)) 
+        if (!is_dir(filename: $directoryPath)) 
         {
             throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Directory not found: " . $directoryPath);
         }
 
         $files = [];
-        $dirIterator = new RecursiveDirectoryIterator($directoryPath, RecursiveDirectoryIterator::SKIP_DOTS);
-        $iterator    = new RecursiveIteratorIterator($dirIterator);
+        $dirIterator = new RecursiveDirectoryIterator(directory: $directoryPath, flags: RecursiveDirectoryIterator::SKIP_DOTS);
+        $iterator    = new RecursiveIteratorIterator(iterator: $dirIterator);
 
         foreach ($iterator as $fileInfo) 
         {
