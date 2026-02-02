@@ -322,10 +322,11 @@ class FileSystem
      * Lists the content (files and directories) in a directory using an iterator.
      *
      * @param string $directoryPath The path to the directory.
-     * @return RecursiveIteratorIterator An iterator for the files and directories.
+     * @param int $depth The maximum depth to traverse.
+     * @return RecursiveIteratorIterator An iterator for the directory content.
      * @throws GamerHelpDeskException If the directory does not exist.
      */
-    public function listContentInDirectoryIterator(string $directoryPath): RecursiveIteratorIterator
+    public function listContentInDirectoryIterator(string $directoryPath, int $depth = 0): RecursiveIteratorIterator
     {
         if (!is_dir(filename: $directoryPath)) 
         {
@@ -335,6 +336,10 @@ class FileSystem
         $dirIterator = new RecursiveDirectoryIterator(directory: $directoryPath);
         $dirIterator->setFlags(flags: RecursiveDirectoryIterator::SKIP_DOTS|FileSystemIterator::UNIX_PATHS);
         $iterator    = new RecursiveIteratorIterator(iterator: $dirIterator, mode: RecursiveIteratorIterator::SELF_FIRST);
+        if($depth > 0)
+        {
+            $iterator->setMaxDepth(maxDepth: $depth);
+        }
 
         return $iterator;
     }
