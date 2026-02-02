@@ -36,7 +36,10 @@ namespace GamerHelpDesk\FileSystem;
  */
 enum FileTypeEnum: string {
     case TXT  = "txt";
+    case JSON = "json";
+    case CSV  = "csv";
     case PDF  = "pdf";
+    case XML  = "xml";
     case DOC  = "doc";
     case DOCX = "docx";
     case XLS  = "xls";
@@ -44,9 +47,14 @@ enum FileTypeEnum: string {
     case PNG  = "png";
     case JPG  = "jpg";
     case JPEG = "jpeg";
+    case WEBP = "webp";
+    case SVG  = "svg";
     case GIF  = "gif";
     case MP3  = "mp3";
+    case OGG  = "ogg";
+    case WAV  = "wav";
     case MP4  = "mp4";
+    case WEBM = "webm";
     case ZIP  = "zip";
     case RAR  = "rar";
     /*
@@ -67,7 +75,10 @@ enum FileTypeEnum: string {
     public static function getExtension(FileTypeEnum $fileType): string {
         return match ($fileType) {
             FileTypeEnum::TXT  => 'txt',
+            FileTypeEnum::JSON => 'json',
+            FileTypeEnum::CSV  => 'csv',
             FileTypeEnum::PDF  => 'pdf',
+            FileTypeEnum::XML  => 'xml',
             FileTypeEnum::DOC  => 'doc',
             FileTypeEnum::DOCX => 'docx',
             FileTypeEnum::XLS  => 'xls',
@@ -75,9 +86,14 @@ enum FileTypeEnum: string {
             FileTypeEnum::PNG  => 'png',
             FileTypeEnum::JPG  => 'jpg',
             FileTypeEnum::JPEG => 'jpeg',
+            FileTypeEnum::WEBP => 'webp',
+            FileTypeEnum::SVG  => 'svg',
             FileTypeEnum::GIF  => 'gif',
             FileTypeEnum::MP3  => 'mp3',
+            FileTypeEnum::OGG  => 'ogg',
+            FileTypeEnum::WAV  => 'wav',
             FileTypeEnum::MP4  => 'mp4',
+            FileTypeEnum::WEBM => 'webm',
             FileTypeEnum::ZIP  => 'zip',
             FileTypeEnum::RAR  => 'rar',
         };

@@ -1,6 +1,6 @@
 <?php
 /*
- * File: FileSYstem.php
+ * File: FileSystem.php
  * Project: GamerHelpDesk
  * Created Date: January 2026
  * Author: danutz0501 (M. Dumitru Daniel)
@@ -34,6 +34,8 @@ use GamerHelpDesk\Exception\
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use FileSystemIterator;
+use Iterator;
+use SimpleXMLIterator;
 use SplFileInfo;
 
 /**
@@ -42,11 +44,72 @@ use SplFileInfo;
 class FileSystem
 {
     /**
+     * Supported file types categorized by their nature.
+     */
+    /**
+     * Array of allowed text files 
+     * @var array
+     */
+    public const TEXT_FILES = [
+        FileTypeEnum::TXT->value,
+        FileTypeEnum::JSON->value,
+        FileTypeEnum::CSV->value,
+        FileTypeEnum::XML->value,
+        FileTypeEnum::PDF->value,
+        FileTypeEnum::DOC->value,
+        FileTypeEnum::DOCX->value,
+        FileTypeEnum::XLS->value,
+        FileTypeEnum::XLSX->value,
+    ];
+
+    /**
+     * Array of allowed image files
+     * @var array
+     */
+    public const IMAGE_FILES = [
+        FileTypeEnum::PNG->value,
+        FileTypeEnum::JPG->value,
+        FileTypeEnum::JPEG->value,
+        FileTypeEnum::WEBP->value,
+        FileTypeEnum::SVG->value,
+        FileTypeEnum::GIF->value,
+    ];
+
+    /**
+     * Array of allowed audio files
+     * @var array
+     */
+    protected const AUDIO_FILES = [
+        FileTypeEnum::MP3->value,
+        FileTypeEnum::OGG->value,
+        FileTypeEnum::WAV->value,
+    ];
+
+    /**
+     * Array of allowed video files
+     * @var array
+     */
+    protected const VIDEO_FILES = [
+        FileTypeEnum::MP4->value,
+        FileTypeEnum::WEBM->value,
+        FileTypeEnum::OGG->value,
+    ];
+
+    /**
+     * Array of allowed archive files
+     * @var array
+     */
+    protected const ARCHIVE_FILES = [
+        FileTypeEnum::ZIP->value,
+        FileTypeEnum::RAR->value,
+    ];
+
+    /**
      * Constructor for FileSystem class.
      */
     public function __construct()
     {
-
+        // I'm going to leave this empty for now.
     }
 
     /**
@@ -364,5 +427,67 @@ class FileSystem
         }
 
         return new SplFileInfo(filename: $filePath);
+    }
+
+    /**
+     * Loads and parses an XML file.
+     *
+     * @param string $filePath The path to the XML file.
+     * @return SimpleXMLIterator An iterator for the XML content.
+     * @throws GamerHelpDeskException If the file does not exist, is not readable, or cannot be parsed.
+     */
+    public function loadXMLFile(string $filePath): SimpleXMLIterator
+    {
+        if (!file_exists(filename: $filePath)) 
+        {
+            throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"File not found: " . $filePath);
+        }
+
+        if (!is_readable(filename: $filePath)) 
+        {
+            throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"File is not readable: " . $filePath);
+        }
+
+        libxml_use_internal_errors(use_errors:true);
+        $xml = simplexml_load_file(filename: $filePath, class_name: SimpleXMLIterator::class, options: LIBXML_NOCDATA);
+        if ($xml === false) 
+        {
+            $errors = libxml_get_errors();
+            $errorMessage = "Failed to load XML file: " . $filePath . ". Errors: ";
+            foreach ($errors as $error) 
+            {
+                $errorMessage .= trim(string: $error->message) . "; ";
+            }
+            libxml_clear_errors();
+            throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message: rtrim(string: $errorMessage, characters: "; "));
+        }
+
+        return $xml;
+    }
+
+    /**
+     * Filters files in a directory by their extensions.
+     *
+     * @param string $path The path to the directory.
+     * @param string|array $types The file extensions to filter by.
+     * @return Iterator An iterator for the filtered files.
+     * @throws GamerHelpDeskException If the directory does not exist or is not readable.
+     */
+    public function filterByType(string $path, string|array $types): Iterator
+    {
+        if(!is_dir(filename: $path)) 
+        {
+            throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Directory not found: " . $path);
+        }
+
+        if(!is_readable(filename: $path)) 
+        {
+            throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Directory is not readable: " . $path);
+        }
+
+        $files = new RecursiveDirectoryIterator(directory: $path);
+        $files->setFlags(flags: RecursiveDirectoryIterator::SKIP_DOTS|FileSystemIterator::UNIX_PATHS);
+        $filter = new FilterByExtension(iterator: $files, allowedExtensions: $types);
+        return new RecursiveIteratorIterator(iterator: $filter); 
     }
 }
