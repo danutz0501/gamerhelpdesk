@@ -33,6 +33,8 @@ use GamerHelpDesk\Exception\
 };
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use FileSystemIterator;
+use SplFileInfo;
 
 /**
  * FileSystem class
@@ -140,10 +142,10 @@ class FileSystem
             throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Unauthorized directory deletion attempt: " . $directoryPath);
         }
 
-        $items = new RecursiveIteratorIterator(
-            iterator: new RecursiveDirectoryIterator(directory: $directoryPath, flags: RecursiveDirectoryIterator::SKIP_DOTS),
-            mode: RecursiveIteratorIterator::CHILD_FIRST
-        );
+        $items = new RecursiveDirectoryIterator(directory: $directoryPath);
+        $items->setFlags(flags: RecursiveDirectoryIterator::SKIP_DOTS|FileSystemIterator::UNIX_PATHS);
+        $items = new RecursiveIteratorIterator(iterator: $items, mode: RecursiveIteratorIterator::CHILD_FIRST);
+    
 
         foreach ($items as $item) 
         {
@@ -274,7 +276,8 @@ class FileSystem
         }
 
         $files = [];
-        $dirIterator = new RecursiveDirectoryIterator(directory: $directoryPath, flags: RecursiveDirectoryIterator::SKIP_DOTS);
+        $dirIterator = new RecursiveDirectoryIterator(directory: $directoryPath);
+        $dirIterator->setFlags(flags: RecursiveDirectoryIterator::SKIP_DOTS|FileSystemIterator::UNIX_PATHS);
         $iterator    = new RecursiveIteratorIterator(iterator: $dirIterator);
 
         foreach ($iterator as $fileInfo) 
@@ -303,7 +306,8 @@ class FileSystem
         }
 
         $contents = [];
-        $dirIterator = new RecursiveDirectoryIterator(directory: $directoryPath, flags: RecursiveDirectoryIterator::SKIP_DOTS);
+        $dirIterator = new RecursiveDirectoryIterator(directory: $directoryPath);
+        $dirIterator->setFlags(flags: RecursiveDirectoryIterator::SKIP_DOTS|FileSystemIterator::UNIX_PATHS);
         $iterator    = new RecursiveIteratorIterator(iterator: $dirIterator, mode: RecursiveIteratorIterator::SELF_FIRST);
 
         foreach ($iterator as $fileInfo) 
@@ -312,5 +316,48 @@ class FileSystem
         }
 
         return $contents;
+    }
+
+    /**
+     * Lists the content (files and directories) in a directory using an iterator.
+     *
+     * @param string $directoryPath The path to the directory.
+     * @return RecursiveIteratorIterator An iterator for the files and directories.
+     * @throws GamerHelpDeskException If the directory does not exist.
+     */
+    public function listContentInDirectoryIterator(string $directoryPath): RecursiveIteratorIterator
+    {
+        if (!is_dir(filename: $directoryPath)) 
+        {
+            throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"Directory not found: " . $directoryPath);
+        }
+
+        $dirIterator = new RecursiveDirectoryIterator(directory: $directoryPath);
+        $dirIterator->setFlags(flags: RecursiveDirectoryIterator::SKIP_DOTS|FileSystemIterator::UNIX_PATHS);
+        $iterator    = new RecursiveIteratorIterator(iterator: $dirIterator, mode: RecursiveIteratorIterator::SELF_FIRST);
+
+        return $iterator;
+    }
+
+    /**
+     * Gets information about a file.
+     *
+     * @param string $filePath The path to the file.
+     * @return SplFileInfo An object containing file information.
+     * @throws GamerHelpDeskException If the file does not exist or is not readable.
+     */
+    public function getFileInfo(string $filePath): SplFileInfo
+    {
+        if (!file_exists(filename: $filePath)) 
+        {
+            throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"File not found: " . $filePath);
+        }
+
+        if (!is_readable(filename: $filePath)) 
+        {
+            throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::FileSystemException, custom_message:"File is not readable: " . $filePath);
+        }
+
+        return new SplFileInfo(filename: $filePath);
     }
 }
