@@ -27,8 +27,7 @@ declare(strict_types=1);
 namespace Internal;
 
 use GamerHelpDesk\Http\Router\Router;
-use GamerHelpDesk\Exception\
-{
+use GamerHelpDesk\Exception\{
     GamerHelpDeskException,
     GamerHelpDeskExceptionEnum,
 };
@@ -55,6 +54,25 @@ class Internal
         $view = new View(view_name: $this->view_path .'speed-dial');
         $view->assign(name: 'title', value: 'Speed Dial');
         echo $view->render();
+    }
+
+    public function speedDialAdd(): void
+    {
+        // Handle form submission and add the new speed dial entry to the database
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'] ?? null;
+            $url = $_POST['url'] ?? null;
+
+            if (!$name || !$url) {
+                throw new GamerHelpDeskException(case: GamerHelpDeskExceptionEnum::InvalidArgumentException, custom_message: "Name and URL are required for speed dial entry.");
+            }
+
+            // Here you would typically add the new entry to the database
+            // For demonstration purposes, we'll just redirect back to the speed dial page
+
+            header(location: "/speed-dial");
+            exit();
+        }
     }
 
     public function services()

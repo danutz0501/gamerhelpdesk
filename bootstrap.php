@@ -79,7 +79,8 @@ try {
 
         $router->addNamedRoute(verb: "GET", route: "/", method: "Internal\\Internal::index");
         $router->addNamedRoute(verb: "GET", route: "/internal", method: "Internal\\Internal::index");
-        $router->addNamedRoute(verb: "GET", route: "/speed-dial", method: "Internal\\Internal::speedDial");
+        $router->addNamedRoute(verb: "POST", route: "/speed-dial", method: "Internal\\Internal::speedDial");
+        $router->addNamedRoute(verb: "GET", route: "/speed-dial-add", method: "Internal\\Internal::speedDialAdd");
         $router->addNamedRoute(verb: "GET", route: "/services", method: "Internal\\Internal::services");
         $router->addNamedRoute(verb: "GET", route: "/notes", method: "Internal\\Internal::notes");
         /**

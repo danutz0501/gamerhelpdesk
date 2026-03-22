@@ -48,7 +48,7 @@ class FilterByExtension extends RecursiveFilterIterator
         }
 
         return $this->current()->isFile() && 
-                in_array(needle: strtolower(string: $this->current()->getExtension()), haystack: $this->allowedExtensions);
+                \in_array(needle: strtolower(string: $this->current()->getExtension()), haystack: $this->allowedExtensions);
 }
 
     public function getChildren(): self

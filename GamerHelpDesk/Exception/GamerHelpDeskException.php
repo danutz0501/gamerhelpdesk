@@ -56,6 +56,7 @@ class GamerHelpDeskException extends Exception
             GamerHelpDeskExceptionEnum::InvalidDateTimeException => parent::__construct(message: sprintf( "BAD REQUEST - INVALID DATE TIME %s ",  $this->custom_message)),
             GamerHelpDeskExceptionEnum::SystemException          => parent::__construct(message: sprintf( "BAD REQUEST - SYSTEM ERROR %s"      ,  $this->custom_message)),
             GamerHelpDeskExceptionEnum::FileSystemException      => parent::__construct(message: sprintf( "BAD REQUEST - FILE ERROR %s"        ,  $this->custom_message)),
+            GamerHelpDeskExceptionEnum::DatabaseException        => parent::__construct(message: sprintf( "BAD REQUEST - DATABASE ERROR %s"    ,  $this->custom_message)),
             
             GamerHelpDeskExceptionEnum::RouteNotFoundException   => parent::__construct(message: sprintf( "BAD REQUEST - ROUTE NOT FOUND! %s"  ,  $this->custom_message)),
         };

@@ -29,8 +29,7 @@ namespace GamerHelpDesk\Http\Router;
 use GamerHelpDesk\Helper\SingletonTrait\SingletonTrait;
 use GamerHelpDesk\Http\Request\Request;
 use GamerHelpDesk\Http\Response\Response;
-use GamerHelpDesk\Exception\
-{
+use GamerHelpDesk\Exception\{
     GamerHelpDeskException,
     GamerHelpDeskExceptionEnum
 };

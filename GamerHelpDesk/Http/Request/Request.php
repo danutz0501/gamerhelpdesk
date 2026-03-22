@@ -206,10 +206,11 @@ class Request
      * If the method is not set or is not a valid HTTP verb, it defaults to 'GET'.
      * @return void
      */
-    //TODO: Use new php 8.5 pipeline operator for cleaner code |>
     protected function setHttpMethod(): void
     {
-        $this->http_method = isset($_SERVER['REQUEST_METHOD']) && preg_match(pattern: self::HTTP_VERBS, subject: strtoupper(string: $_SERVER['REQUEST_METHOD'])) ? strtoupper(string: $_SERVER['REQUEST_METHOD']) : 'GET';
+        $this->http_method = strtoupper(string: $_SERVER['REQUEST_METHOD'] ?? 'GET')
+            |> fn(string $method): string => preg_match(pattern: self::HTTP_VERBS, subject: $method) ? $method : 'GET';
+        //$this->http_method = isset($_SERVER['REQUEST_METHOD']) && preg_match(pattern: self::HTTP_VERBS, subject: strtoupper(string: $_SERVER['REQUEST_METHOD'])) ? strtoupper(string: $_SERVER['REQUEST_METHOD']) : 'GET';
     }
 
     /**

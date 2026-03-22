@@ -45,6 +45,7 @@ enum GamerHelpDeskExceptionEnum: string
     case InvalidDateTimeException = "InvalidDateTimeException";
     case SystemException          = "SystemException";
     case FileSystemException      = "FileSystemException";
+    case DatabaseException        = "DatabaseException";
     
     case RouteNotFoundException   = "RouteNotFoundException";
 }
